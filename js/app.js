@@ -9,6 +9,8 @@ class App {
         document.body.appendChild(this.canvas);
 
         this.hills = [
+            new Hill('#fd6bea', 0.2, 12),
+            new Hill('#ff59c2', 0.5, 8),
             new Hill('#ff4674', 1.4, 6)
         ];
 
@@ -23,7 +25,7 @@ class App {
         this.stageHeight = document.body.clientHeight;
 
         this.canvas.width = this.stageWidth * 2;
-        this.canvas.height = this.canvas.stageHeight * 2;
+        this.canvas.height = this.stageHeight * 2;
         this.ctx.scale(2,2);
 
         for (let i = 0; i < this.hills.length; i++){

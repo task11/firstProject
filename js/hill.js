@@ -9,7 +9,6 @@ export class Hill {
         this.stageWidth = stageWidth;
         this.stageHeight = stageHeight;
 
-
         this.points = [];
         this.gap = Math.ceil(this.stageWidth / (this.total - 2));
 
@@ -19,16 +18,29 @@ export class Hill {
                 y: this.getY()
             };
         }
+
+        
     }
 
     draw(ctx){
-        ctx.filStyle = this.color;
+        ctx.fillStyle = this.color;
         ctx.beginPath();
 
         let cur = this.points[0];
         let prev = cur;
 
         let dots = [];
+        cur.x += this.speed;
+
+        if(cur.x > -this.gap){
+            this.points.unshift({
+                x:-(this.gap *2),
+                y: this.getY()
+
+            });
+        }else if (cur.x > this.stageWidth + this.gap){
+            this.points.splice(-1);
+        }
 
         ctx.moveTo(cur.x, cur.y);
 
@@ -37,7 +49,7 @@ export class Hill {
 
         for(let i = 1; i < this.points.length; i++){
             cur = this.points[i];
-
+            cur.x += this.speed;
             const cx = (prev.x + cur.x) / 2;
             const cy = (prev.y + cur.y) / 2;
             ctx.quadraticCurveTo(prev.x, prev.y, cx, cy);
@@ -55,7 +67,7 @@ export class Hill {
             prevCx = cx;
             prevCy = cy;
         }
-
+        
         ctx.lineTo(prev.x, prev.y);
         ctx.lineTo(this.stageWidth, this.stageHeight);
         ctx.lineTo(this.points[0].x, this.stageHeight);
@@ -67,6 +79,7 @@ export class Hill {
     getY() { // random Y(Height) value create
         const min = this.stageHeight / 8;
         const max = this.stageHeight - min;
+
         return min + Math.random() * max;
     }
 
