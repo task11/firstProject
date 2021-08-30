@@ -16,6 +16,7 @@ export class SheepController {
         this.cur = 0;
         this.isLoaded = false;
 
+
     }
 
     resize(stageWidth, stageHeight) {
